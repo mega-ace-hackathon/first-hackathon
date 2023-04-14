@@ -20,7 +20,7 @@ The smart contract should have 3 functions (arguments in AppArgs order):
 NoOp(“NONE”)
 //always approves the transaction and does nothing else (will be used to increase transaction budget)
 
-AddMonster(“CREATE”, uint64 name, uint64 attack, uint64 defense, uint64 HP, uint64 X, uint64 Y, uint64 ASAid)
+AddMonster(“CREATE”, string name, uint64 attack, uint64 defense, uint64 HP, uint64 X, uint64 Y, uint64 ASAid)
 //adds a monster to the map and approves the transaction if succesful
 
 FindMonstersInLocation(“LOOKUP_BY_LOC”, uint64 X, uint64 Y, uint64 radius_squared)
