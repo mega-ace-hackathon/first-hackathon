@@ -1,0 +1,23 @@
+#pragma version 8
+
+txna ApplicationArgs 0
+  pop
+
+txna ApplicationArgs 0
+  dup
+    pop
+
+  txna ApplicationArgs 0
+    btoi
+    pop
+
+  btoi
+  pop
+
+txna ApplicationArgs 0
+  btoi
+  int 1
+  +
+  dup
+    pop
+  return

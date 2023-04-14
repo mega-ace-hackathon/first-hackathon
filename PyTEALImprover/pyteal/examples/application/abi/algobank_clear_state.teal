@@ -1,0 +1,11 @@
+#pragma version 6
+byte "lost"
+byte "lost"
+app_global_get
+txn Sender
+byte "balance"
+app_local_get
++
+app_global_put
+int 1
+return

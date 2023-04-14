@@ -1,0 +1,17 @@
+#pragma version 8
+
+int 9                  // [9]
+int 4                  // [9, 4]
+int 33                 // [9, 4, 33]
+
+txna ApplicationArgs 0 // [9, 4, 33, arg_0]
+btoi                   // [9, 4, 33, int(arg_0)]
+bz after_swap          // [9, 4, 33]
+dig 2                  // [9, 4, 33, 9]
+swap                   // [9, 4, 9, 33]
+bury 3                 // [33, 4, 9]
+
+after_swap:            // [9, 4, 33] or [33, 4, 9]
+*                      // [9, 132] or [33, 36]
++                      // [141] or [69]
+return

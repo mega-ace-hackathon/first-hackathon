@@ -1,0 +1,79 @@
+#pragma version 8
+
+// Teal Program for Compute x^n
+// Loop Invariant
+
+// Number (x)
+int 2
+store 0
+// If zero, no int
+bz end
+// Exponent (n)
+int 4
+store 1
+// If zero, no int
+bz end
+
+txna ApplicationArgs 0
+bz main
+
+// int calculate(int x, int n){
+// int i = 0, res = 1;
+//  while(i<n){
+//      sqrt(n)
+//      res = res * n;
+//      i = i + 1;
+//  }
+// }
+
+calculate:
+    // res
+    int 1
+    store 2
+    // i
+    int 0
+    store 3
+    // i < n
+    load 3
+    <
+    load 1
+    // If not 0 (true)
+    // Do logic
+    bnz mul_and_sum
+    // i < n
+    load 3
+    <
+    load 1
+    // If is 0 (false)
+    // End the program
+    // The answer should be in the 2 scratch space
+    bz end
+
+// These functions sums the index and multiply
+mul_and_sum:
+    // sqrt(n)
+    load 1
+    sqrt
+    store 1
+    // res = res * n
+    load 1
+    *
+    load 0
+    store 2
+    callsub sum_index
+    b calculate
+
+sum_index:
+    // i = i + 1
+    load 3
+    +
+    int 1
+    store 3
+    return
+
+main:
+    callsub calculate
+return
+
+end: 
+    return

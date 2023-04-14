@@ -1,0 +1,64 @@
+#pragma version 8
+
+// Unused loop
+
+txna ApplicationArgs 0
+bz main
+
+function:
+    callsub loop
+    txna ApplicationArgs 9
+    // Do some stuff
+    // Use the bitlen for calculte its sqrt
+    // And then exponenciate it
+    store 0
+    load 0
+    bitlen
+    store 0
+    load 0
+    sqrt
+    store 0
+    load 0
+    exp 
+    store 0
+    load 0
+    >
+    int 1
+    callsub loop
+    b end
+
+loop:
+    int 1
+    store 10
+    int 50
+    store 20
+    // i < x
+    load 10
+    <
+    load 20
+    // If not 0 (true)
+    // Do logic
+    bnz square
+    // i < n
+    load 3
+    <
+    load 1
+    // If is 0 (false)
+    // End the program
+    return
+
+square:
+    int 10
+    +
+    load 20
+    store 12
+    load 12
+    sqrt
+    store 12
+    return
+main:
+    callsub function
+return
+
+end:
+    return

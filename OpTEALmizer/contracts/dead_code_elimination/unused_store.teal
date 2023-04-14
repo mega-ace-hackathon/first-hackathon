@@ -1,0 +1,17 @@
+#pragma version 8
+
+txna ApplicationArgs 0
+store 0
+txna ApplicationArgs 0
+btoi
+store 0
+load 0
+int 1
++
+store 0
+load 0
+dup
++
+store 0
+load 0
+return

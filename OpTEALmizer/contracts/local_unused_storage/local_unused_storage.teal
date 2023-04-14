@@ -1,0 +1,58 @@
+#pragma version 8
+
+// Unused local storage
+// while(x>n) {
+//    int i = 0;
+//    ++i;
+//    ++n;
+//}
+
+txna ApplicationArgs 0
+bz main
+
+loop:
+    // x
+    int 10
+    store 0
+    // n
+    int 0
+    store 1
+    // i
+    int 0
+    store 2
+    // x > n
+    load 0
+    >
+    load 1
+    // If not 0 (true)
+    // Do logic
+    bnz sum
+    // x > n
+    load 0
+    <
+    load 1
+    // If is 0 (false)
+    // End the program
+    // The answer should be in the 2 scratch space
+    bz end
+
+// These functions sums the index and multiply
+sum:
+    // ++i
+    int 1
+    +
+    load 2
+    store 2
+    // ++n
+    int 1
+    +
+    load 1
+    store 1
+    b loop
+
+main:
+    callsub loop
+return
+
+end:
+    return

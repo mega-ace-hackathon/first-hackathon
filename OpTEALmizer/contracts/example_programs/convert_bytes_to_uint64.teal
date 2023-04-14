@@ -1,0 +1,29 @@
+#pragma version 8
+int 0             // acc = 0
+int 0             // acc = 0, i = 0
+byte "value"
+app_global_get    // acc = 0, i = 0, var
+loop:
+dup
+len               // acc, i, var, len(var)
+dig 2             // acc, i, var, len(var), i
+==
+bnz exit          // acc, i, var
+dup
+dig 2             // acc, i, var, var, i
+getbyte           // acc, i, var, var[i]
+int 48
+-                 // acc, i, var, int(var[i])
+dig 3
+int 10
+*
++                 // acc, i, var, acc*10 + int(var[i])
+bury 3            // acc', i, var
+dig 1
+int 1
++
+bury 2            // acc', i', var
+b loop
+exit:             // acc, i, var
+popn 2            // acc
+return

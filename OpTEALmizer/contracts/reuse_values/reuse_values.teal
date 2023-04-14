@@ -1,0 +1,55 @@
+#pragma version 8
+
+// Check i (callsub get_length deliberatedly inlined)
+txna ApplicationArgs 1     // [bytes(i)]
+btoi                       // [i]
+txna ApplicationArgs 0     // [i, arr]
+int 0                      // [i, arr, 0]
+extract_uint64             // [i, arr[0]]
+<                          // [i<arr[0]?]
+assert                     // [], i<arr[0]!
+
+// Check j (callsub get_length deliberatedly inlined)
+txna ApplicationArgs 2     // [bytes(j)]
+btoi                       // [j]
+txna ApplicationArgs 0     // [i, arr]
+int 0                      // [j, arr, 0]
+extract_uint64             // [j, arr[0]]
+<                          // [j<arr[0]?]
+assert                     // [], j<arr[0]!
+
+txna ApplicationArgs 1     // [bytes(i)]
+btoi                       // [i]
+callsub get                // [arr[i]]
+
+txna ApplicationArgs 2     // [arr[i], bytes(j)]
+btoi                       // [arr[i], j]
+callsub get                // [arr[i], arr[j]]
+
+callsub get_length         // [arr[i], arr[j], len(arr)]
+*                          // [arr[i], arr[j]*len(arr)]
++                          // [arr[i]+arr[j]*len(arr)]
+callsub get_length         // [arr[i]+arr[j]*len(arr), len(arr)]
+*                          // [(arr[i]+arr[j]*len(arr))*len(arr)]
+return
+
+get:                       // [idx]
+    dup                    // [idx, idx]
+    callsub get_length     // [idx, idx, len(arr)]
+    <                      // [idx, idx<len(arr)?]
+    assert                 // [idx], idx<len(arr)!
+    txna ApplicationArgs 0 // [idx, arr]
+    swap                   // [arr, idx]
+    int 1                  // [arr, idx+1]
+    +                      // [arr, idx+1]
+    int 8                  // [arr, idx, 8]
+    *                      // [arr, (idx+1)*8]
+    extract_uint64         // [arr[idx+1]]
+    retsub
+
+
+get_length:
+    txna ApplicationArgs 0 // [arr]
+    int 0                  // [arr, 0]
+    extract_uint64         // [arr[0]]
+    retsub

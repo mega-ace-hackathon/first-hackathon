@@ -1,0 +1,16 @@
+#pragma version 8
+
+txna ApplicationArgs 0
+int 1
+int 9
++
+int 32
+*
+txna ApplicationArgs 0
+byte "Hello!"
+byte "World"
+concat
+popn 4
+txna ApplicationArgs 0
+btoi
+return

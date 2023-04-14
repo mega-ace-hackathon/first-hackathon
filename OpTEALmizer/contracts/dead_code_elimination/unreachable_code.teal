@@ -1,0 +1,29 @@
+#pragma version 8
+
+int 1
+txna ApplicationArgs 0
+btoi
+bz end
+b is_nonzero
+
+multiply_by_7: // [x]
+    int 7      // [x, 7]
+    *          // [x*7]
+    retsub
+
+to_the_6th_power: // [x]
+    dup           // [x, x]
+    *             // [x^2]
+    dup           // [x^2, x^2]
+    dup           // [x^2, x^2, x^2]
+    *             // [x^2, x^4]
+    *             // [x^6]
+    retsub
+
+end:
+  return
+
+is_nonzero:
+    dup
+    +
+    b end
