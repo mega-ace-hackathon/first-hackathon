@@ -1,2 +1,4 @@
 # first-hackathon
-First MEGA-ACE Hackathon
+First MEGA-ACE Hackathon.
+
+Problems coming soon.
