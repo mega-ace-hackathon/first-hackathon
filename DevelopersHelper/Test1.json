@@ -1,0 +1,91 @@
+{
+  "Interfaces":[
+     {
+        "name":"Calculator",
+        "desc":"Interface for a basic calculator supporting additions and multiplications",
+        "methods":[
+           {
+              "call_config":[
+                 {
+                    "ApplicationID":"neq 0",
+                    "OnCompletion":"eq NoOp"
+                 }
+              ],
+              "name":"add",
+              "desc":"Calculate the sum of two 64-bit integers",
+              "args":[
+                 {
+                    "type":"uint64",
+                    "name":"a",
+                    "desc":"The first term to add"
+                 },
+                 {
+                    "type":"uint64",
+                    "name":"b",
+                    "desc":"The second term to add"
+                 }
+              ],
+              "returns":{
+                 "type":"uint128",
+                 "desc":"The sum of a and b"
+              }
+           },
+           {
+              "call_config":[
+                 {
+                    "ApplicationID":"neq 0",
+                    "OnCompletion":"eq NoOp"
+                 },
+                 {
+                    "ApplicationID":"eq 0",
+                    "OnCompletion":"eq UpdateApplication",
+                    "Sender":"neq N2C374IRX7HEX2YEQWJBTRSVRHRUV4ZSF76S54WV4COTHRUNYRCI47R3WU"
+                 }
+              ],
+              "name":"multiply",
+              "desc":"Calculate the product of two 64-bit integers",
+              "args":[
+                 {
+                    "type":"uint64",
+                    "name":"a",
+                    "desc":"The first factor to multiply"
+                 },
+                 {
+                    "type":"uint64",
+                    "name":"b",
+                    "desc":"The second factor to multiply"
+                 }
+              ],
+              "returns":{
+                 "type":"uint128",
+                 "desc":"The product of a and b"
+              }
+           }
+        ]
+     },
+     {
+        "name":"ARC-73",
+        "desc":"Interface for interface detection",
+        "methods":[
+           {
+            "call_config":[
+              ],
+              "name":"supportsInterface",
+              "desc":"Detects support for an interface specified by selector.",
+              "readonly":true,
+              "args":[
+                 {
+                    "type":"byte[4]",
+                    "name":"interfaceID",
+                    "desc":"The selector of the interface to detect."
+                 }
+              ],
+              "returns":{
+                 "type":"bool",
+                 "desc":"Whether the contract supports the interface."
+              }
+           }
+        ]
+     }
+  ]
+}
