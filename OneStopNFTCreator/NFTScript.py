@@ -12,17 +12,17 @@ import requests
 PINATA_JWT = ""
 UPLOAD_TO_PINATA = False
 IPFS_FOLDER = "ipfs_folder"
-IPFS_HASH = 'bafybeiglroqpfrjo75jihtrfpknyrsvm6egst2iwvziqzlcevge33oglnq'
+IPFS_HASH = 'bafybeifoxvha7bknswmvhd7sedn26y5vx4js4oo65nixkmgkjnn2lcobau'
 
 
 def mintNFT(algod_client, creator_address, creator_private_key, asset_name, asset_unit_name):
-    name = "My Avatar"
+    name = asset_name
     image = "avatar.png"
     decimals = 0
     (meta_json, hash) = create_nft_metadata(name, image, decimals)
     ipfs_hash = IPFS_HASH
     if UPLOAD_TO_PINATA:
-        ipfs_hash = upload_to_pinata(IPFS_FOLDER, PINATA_JWT)
+        ipfs_hash = upload_to_pinata(PINATA_JWT)
 
     # create nft txn
     params = algod_client.suggested_params()
@@ -37,7 +37,7 @@ def mintNFT(algod_client, creator_address, creator_private_key, asset_name, asse
         reserve=creator_address,
         freeze=creator_address,
         clawback=creator_address,
-        url=f"ipfs://{ipfs_hash}/meta.json",
+        url=f"ipfs:://{ipfs_hash}/metadata.json#arc3",
         metadata_hash=hash,
         decimals=decimals
     )
@@ -69,11 +69,11 @@ def upload_to_pinata(pinata_jwt):
     payload = {'pinataOptions': '{"cidVersion": 1}', }
 
     with open(f'./{IPFS_FOLDER}/avatar.png', 'rb') as avatar_file:
-        with open(f'./{IPFS_FOLDER}/meta.json', 'rb') as meta_file:
+        with open(f'./{IPFS_FOLDER}/metadata.json', 'rb') as meta_file:
             files = [
                 ('file', ('/mega-ace-nft/avatar.png', avatar_file,
                           'application/octet-stream')),
-                ('file', ('/mega-ace-nft/meta.json', meta_file,
+                ('file', ('/mega-ace-nft/metadata.json', meta_file,
                           'application/octet-stream')),
             ]
             headers = {'Authorization': f'Bearer {pinata_jwt}'}
@@ -96,11 +96,10 @@ def create_nft_metadata(name, image, decimals):
     meta['image'] = image
     meta['decimals'] = decimals
     meta_json = json.dumps(meta)
-    with open(f'./{IPFS_FOLDER}/meta.json', 'w') as outfile:
+    with open(f'./{IPFS_FOLDER}/metadata.json', 'w') as outfile:
         json.dump(meta, outfile)
 
-    h = hashlib.new("sha512_256")
-    h.update(b"arc0003/amj")
+    h = hashlib.new("sha256")
     h.update(meta_json.encode("utf-8"))
     json_metadata_hash = h.digest()
 
