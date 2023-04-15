@@ -37,5 +37,5 @@ Your submission must include a python script called **DevHelper.py**. It must im
 
 
 ## Tests
-Testing will be carried using the graviton blackbox testing suite (https://github.com/algorand/graviton)
+Testing (both secret tests and those provided to you in _DevHelperTests.py_) will be carried out using the graviton blackbox testing toolkit. To run the provided test script, you'll need to install it. Instructions are available on their official repository (https://github.com/algorand/graviton).
 An example of a json file with two interface descriptions is provided (note that the interface selector interface will always be included)
