@@ -1,0 +1,1424 @@
+#pragma version 7
+txn ApplicationID
+int 0
+==
+bnz main_l155
+txn ApplicationID
+int 0
+!=
+bnz main_l17
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l16
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l15
+txn OnCompletion
+int CloseOut
+==
+bnz main_l12
+txn OnCompletion
+int OptIn
+==
+bnz main_l11
+txna ApplicationArgs 0
+byte "vote"
+==
+bnz main_l8
+err
+main_l8:
+global Round
+byte "VoteBegin"
+app_global_get
+>=
+global Round
+byte "VoteEnd"
+app_global_get
+<=
+&&
+assert
+int 0
+global CurrentApplicationID
+byte "voted"
+app_local_get_ex
+store 14
+store 13
+load 14
+bnz main_l10
+txna ApplicationArgs 1
+txna ApplicationArgs 1
+app_global_get
+int 1
++
+app_global_put
+int 0
+byte "voted"
+txna ApplicationArgs 1
+app_local_put
+int 1
+return
+main_l10:
+int 0
+return
+main_l11:
+global Round
+byte "RegBegin"
+app_global_get
+>=
+global Round
+byte "RegEnd"
+app_global_get
+<=
+&&
+return
+main_l12:
+int 0
+global CurrentApplicationID
+byte "voted"
+app_local_get_ex
+store 14
+store 13
+global Round
+byte "VoteEnd"
+app_global_get
+<=
+load 14
+&&
+bnz main_l14
+main_l13:
+int 1
+return
+main_l14:
+load 13
+load 13
+app_global_get
+int 1
+-
+app_global_put
+b main_l13
+main_l15:
+txn Sender
+byte "Creator"
+app_global_get
+==
+return
+main_l16:
+txn Sender
+byte "Creator"
+app_global_get
+==
+return
+main_l17:
+txn NumAppArgs
+int 1
+==
+assert
+int 0
+store 1
+int 0
+store 2
+int 0
+store 3
+int 0
+store 4
+int 0
+store 5
+int 0
+store 6
+int 0
+store 7
+int 0
+store 8
+int 0
+store 9
+byte "playing"
+store 0
+int 0
+store 12
+int 0
+store 10
+int 0
+store 11
+main_l18:
+load 12
+int 9
+<
+load 0
+byte "playing"
+==
+&&
+bnz main_l28
+load 0
+byte "player won"
+==
+bnz main_l27
+load 0
+byte "contract won"
+==
+bnz main_l26
+load 0
+byte "bad move"
+==
+bnz main_l25
+load 0
+byte "draw"
+==
+bnz main_l24
+byte "draw"
+store 0
+int 1
+return
+main_l24:
+int 1
+return
+main_l25:
+int 1
+return
+main_l26:
+int 1
+return
+main_l27:
+int 1
+return
+main_l28:
+txna ApplicationArgs 0
+load 12
+getbyte
+store 10
+load 10
+int 1
+==
+bnz main_l153
+load 10
+int 2
+==
+bnz main_l151
+load 10
+int 3
+==
+bnz main_l149
+load 10
+int 4
+==
+bnz main_l147
+load 10
+int 5
+==
+bnz main_l145
+load 10
+int 6
+==
+bnz main_l143
+load 10
+int 7
+==
+bnz main_l141
+load 10
+int 8
+==
+bnz main_l139
+load 10
+int 9
+==
+bnz main_l38
+err
+main_l38:
+load 9
+int 0
+!=
+bnz main_l138
+main_l39:
+load 10
+int 1
+==
+bnz main_l137
+load 10
+int 2
+==
+bnz main_l136
+load 10
+int 3
+==
+bnz main_l135
+load 10
+int 4
+==
+bnz main_l134
+load 10
+int 5
+==
+bnz main_l133
+load 10
+int 6
+==
+bnz main_l132
+load 10
+int 7
+==
+bnz main_l131
+load 10
+int 8
+==
+bnz main_l130
+load 10
+int 9
+==
+bnz main_l49
+err
+main_l49:
+int 1
+store 9
+main_l50:
+load 10
+int 1
++
+int 9
+%
+store 11
+load 11
+int 1
+==
+bnz main_l128
+load 11
+int 2
+==
+bnz main_l126
+load 11
+int 3
+==
+bnz main_l124
+load 11
+int 4
+==
+bnz main_l122
+load 11
+int 5
+==
+bnz main_l120
+load 11
+int 6
+==
+bnz main_l118
+load 11
+int 7
+==
+bnz main_l116
+load 11
+int 8
+==
+bnz main_l114
+load 11
+int 9
+==
+bnz main_l60
+err
+main_l60:
+load 9
+int 0
+!=
+bnz main_l113
+main_l61:
+load 11
+int 1
+==
+bnz main_l112
+load 11
+int 2
+==
+bnz main_l111
+load 11
+int 3
+==
+bnz main_l110
+load 11
+int 4
+==
+bnz main_l109
+load 11
+int 5
+==
+bnz main_l108
+load 11
+int 6
+==
+bnz main_l107
+load 11
+int 7
+==
+bnz main_l106
+load 11
+int 8
+==
+bnz main_l105
+load 11
+int 9
+==
+bnz main_l71
+err
+main_l71:
+int 2
+store 9
+main_l72:
+load 1
+int 0
+!=
+load 1
+load 2
+==
+&&
+load 2
+load 3
+==
+&&
+bnz main_l102
+main_l73:
+load 4
+int 0
+!=
+load 4
+load 5
+==
+&&
+load 5
+load 6
+==
+&&
+bnz main_l99
+main_l74:
+load 7
+int 0
+!=
+load 7
+load 8
+==
+&&
+load 8
+load 9
+==
+&&
+bnz main_l96
+main_l75:
+load 1
+int 0
+!=
+load 1
+load 4
+==
+load 4
+load 7
+==
+&&
+&&
+bnz main_l93
+main_l76:
+load 2
+int 0
+!=
+load 2
+load 5
+==
+load 5
+load 8
+==
+&&
+&&
+bnz main_l90
+main_l77:
+load 3
+int 0
+!=
+load 3
+load 6
+==
+load 6
+load 9
+==
+&&
+&&
+bnz main_l87
+main_l78:
+load 1
+int 0
+!=
+load 1
+load 5
+==
+&&
+load 5
+load 9
+==
+&&
+bnz main_l84
+main_l79:
+load 3
+int 0
+!=
+load 3
+load 5
+==
+&&
+load 5
+load 7
+==
+&&
+bnz main_l81
+main_l80:
+load 12
+int 1
++
+store 12
+b main_l18
+main_l81:
+load 3
+int 1
+==
+bnz main_l83
+byte "contract won"
+store 0
+b main_l80
+main_l83:
+byte "player won"
+store 0
+b main_l80
+main_l84:
+load 1
+int 1
+==
+bnz main_l86
+byte "contract won"
+store 0
+b main_l79
+main_l86:
+byte "player won"
+store 0
+b main_l79
+main_l87:
+load 3
+int 1
+==
+bnz main_l89
+byte "contract won"
+store 0
+b main_l78
+main_l89:
+byte "player won"
+store 0
+b main_l78
+main_l90:
+load 2
+int 1
+==
+bnz main_l92
+byte "contract won"
+store 0
+b main_l77
+main_l92:
+byte "player won"
+store 0
+b main_l77
+main_l93:
+load 1
+int 1
+==
+bnz main_l95
+byte "contract won"
+store 0
+b main_l76
+main_l95:
+byte "player won"
+store 0
+b main_l76
+main_l96:
+load 7
+int 1
+==
+bnz main_l98
+byte "contract won"
+store 0
+b main_l75
+main_l98:
+byte "player won"
+store 0
+b main_l75
+main_l99:
+load 4
+int 1
+==
+bnz main_l101
+byte "contract won"
+store 0
+b main_l74
+main_l101:
+byte "player won"
+store 0
+b main_l74
+main_l102:
+load 1
+int 1
+==
+bnz main_l104
+byte "contract won"
+store 0
+b main_l73
+main_l104:
+byte "player won"
+store 0
+b main_l73
+main_l105:
+int 2
+store 8
+b main_l72
+main_l106:
+int 2
+store 7
+b main_l72
+main_l107:
+int 2
+store 6
+b main_l72
+main_l108:
+int 2
+store 5
+b main_l72
+main_l109:
+int 2
+store 4
+b main_l72
+main_l110:
+int 2
+store 3
+b main_l72
+main_l111:
+int 2
+store 2
+b main_l72
+main_l112:
+int 2
+store 1
+b main_l72
+main_l113:
+byte "bad move"
+store 0
+b main_l61
+main_l114:
+load 8
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l116:
+load 7
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l118:
+load 6
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l120:
+load 5
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l122:
+load 4
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l124:
+load 3
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l126:
+load 2
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l128:
+load 1
+int 0
+!=
+bz main_l61
+byte "bad move"
+store 0
+b main_l61
+main_l130:
+int 1
+store 8
+b main_l50
+main_l131:
+int 1
+store 7
+b main_l50
+main_l132:
+int 1
+store 6
+b main_l50
+main_l133:
+int 1
+store 5
+b main_l50
+main_l134:
+int 1
+store 4
+b main_l50
+main_l135:
+int 1
+store 3
+b main_l50
+main_l136:
+int 1
+store 2
+b main_l50
+main_l137:
+int 1
+store 1
+b main_l50
+main_l138:
+byte "bad move"
+store 0
+b main_l39
+main_l139:
+load 8
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l141:
+load 7
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l143:
+load 6
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l145:
+load 5
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l147:
+load 4
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l149:
+load 3
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l151:
+load 2
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l153:
+load 1
+int 0
+!=
+bz main_l39
+byte "bad move"
+store 0
+b main_l39
+main_l155:
+txn NumAppArgs
+int 1
+==
+assert
+int 0
+store 1
+int 0
+store 2
+int 0
+store 3
+int 0
+store 4
+int 0
+store 5
+int 0
+store 6
+int 0
+store 7
+int 0
+store 8
+int 0
+store 9
+byte "playing"
+store 0
+int 0
+store 12
+int 0
+store 10
+int 0
+store 11
+main_l156:
+load 12
+int 9
+<
+load 0
+byte "playing"
+==
+&&
+bnz main_l166
+load 0
+byte "player won"
+==
+bnz main_l165
+load 0
+byte "contract won"
+==
+bnz main_l164
+load 0
+byte "bad move"
+==
+bnz main_l163
+load 0
+byte "draw"
+==
+bnz main_l162
+byte "draw"
+store 0
+int 1
+return
+main_l162:
+int 1
+return
+main_l163:
+int 1
+return
+main_l164:
+int 1
+return
+main_l165:
+int 1
+return
+main_l166:
+txna ApplicationArgs 0
+load 12
+getbyte
+store 10
+load 10
+int 1
+==
+bnz main_l291
+load 10
+int 2
+==
+bnz main_l289
+load 10
+int 3
+==
+bnz main_l287
+load 10
+int 4
+==
+bnz main_l285
+load 10
+int 5
+==
+bnz main_l283
+load 10
+int 6
+==
+bnz main_l281
+load 10
+int 7
+==
+bnz main_l279
+load 10
+int 8
+==
+bnz main_l277
+load 10
+int 9
+==
+bnz main_l176
+err
+main_l176:
+load 9
+int 0
+!=
+bnz main_l276
+main_l177:
+load 10
+int 1
+==
+bnz main_l275
+load 10
+int 2
+==
+bnz main_l274
+load 10
+int 3
+==
+bnz main_l273
+load 10
+int 4
+==
+bnz main_l272
+load 10
+int 5
+==
+bnz main_l271
+load 10
+int 6
+==
+bnz main_l270
+load 10
+int 7
+==
+bnz main_l269
+load 10
+int 8
+==
+bnz main_l268
+load 10
+int 9
+==
+bnz main_l187
+err
+main_l187:
+int 1
+store 9
+main_l188:
+load 10
+int 1
++
+int 9
+%
+store 11
+load 11
+int 1
+==
+bnz main_l266
+load 11
+int 2
+==
+bnz main_l264
+load 11
+int 3
+==
+bnz main_l262
+load 11
+int 4
+==
+bnz main_l260
+load 11
+int 5
+==
+bnz main_l258
+load 11
+int 6
+==
+bnz main_l256
+load 11
+int 7
+==
+bnz main_l254
+load 11
+int 8
+==
+bnz main_l252
+load 11
+int 9
+==
+bnz main_l198
+err
+main_l198:
+load 9
+int 0
+!=
+bnz main_l251
+main_l199:
+load 11
+int 1
+==
+bnz main_l250
+load 11
+int 2
+==
+bnz main_l249
+load 11
+int 3
+==
+bnz main_l248
+load 11
+int 4
+==
+bnz main_l247
+load 11
+int 5
+==
+bnz main_l246
+load 11
+int 6
+==
+bnz main_l245
+load 11
+int 7
+==
+bnz main_l244
+load 11
+int 8
+==
+bnz main_l243
+load 11
+int 9
+==
+bnz main_l209
+err
+main_l209:
+int 2
+store 9
+main_l210:
+load 1
+int 0
+!=
+load 1
+load 2
+==
+&&
+load 2
+load 3
+==
+&&
+bnz main_l240
+main_l211:
+load 4
+int 0
+!=
+load 4
+load 5
+==
+&&
+load 5
+load 6
+==
+&&
+bnz main_l237
+main_l212:
+load 7
+int 0
+!=
+load 7
+load 8
+==
+&&
+load 8
+load 9
+==
+&&
+bnz main_l234
+main_l213:
+load 1
+int 0
+!=
+load 1
+load 4
+==
+load 4
+load 7
+==
+&&
+&&
+bnz main_l231
+main_l214:
+load 2
+int 0
+!=
+load 2
+load 5
+==
+load 5
+load 8
+==
+&&
+&&
+bnz main_l228
+main_l215:
+load 3
+int 0
+!=
+load 3
+load 6
+==
+load 6
+load 9
+==
+&&
+&&
+bnz main_l225
+main_l216:
+load 1
+int 0
+!=
+load 1
+load 5
+==
+&&
+load 5
+load 9
+==
+&&
+bnz main_l222
+main_l217:
+load 3
+int 0
+!=
+load 3
+load 5
+==
+&&
+load 5
+load 7
+==
+&&
+bnz main_l219
+main_l218:
+load 12
+int 1
++
+store 12
+b main_l156
+main_l219:
+load 3
+int 1
+==
+bnz main_l221
+byte "contract won"
+store 0
+b main_l218
+main_l221:
+byte "player won"
+store 0
+b main_l218
+main_l222:
+load 1
+int 1
+==
+bnz main_l224
+byte "contract won"
+store 0
+b main_l217
+main_l224:
+byte "player won"
+store 0
+b main_l217
+main_l225:
+load 3
+int 1
+==
+bnz main_l227
+byte "contract won"
+store 0
+b main_l216
+main_l227:
+byte "player won"
+store 0
+b main_l216
+main_l228:
+load 2
+int 1
+==
+bnz main_l230
+byte "contract won"
+store 0
+b main_l215
+main_l230:
+byte "player won"
+store 0
+b main_l215
+main_l231:
+load 1
+int 1
+==
+bnz main_l233
+byte "contract won"
+store 0
+b main_l214
+main_l233:
+byte "player won"
+store 0
+b main_l214
+main_l234:
+load 7
+int 1
+==
+bnz main_l236
+byte "contract won"
+store 0
+b main_l213
+main_l236:
+byte "player won"
+store 0
+b main_l213
+main_l237:
+load 4
+int 1
+==
+bnz main_l239
+byte "contract won"
+store 0
+b main_l212
+main_l239:
+byte "player won"
+store 0
+b main_l212
+main_l240:
+load 1
+int 1
+==
+bnz main_l242
+byte "contract won"
+store 0
+b main_l211
+main_l242:
+byte "player won"
+store 0
+b main_l211
+main_l243:
+int 2
+store 8
+b main_l210
+main_l244:
+int 2
+store 7
+b main_l210
+main_l245:
+int 2
+store 6
+b main_l210
+main_l246:
+int 2
+store 5
+b main_l210
+main_l247:
+int 2
+store 4
+b main_l210
+main_l248:
+int 2
+store 3
+b main_l210
+main_l249:
+int 2
+store 2
+b main_l210
+main_l250:
+int 2
+store 1
+b main_l210
+main_l251:
+byte "bad move"
+store 0
+b main_l199
+main_l252:
+load 8
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l254:
+load 7
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l256:
+load 6
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l258:
+load 5
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l260:
+load 4
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l262:
+load 3
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l264:
+load 2
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l266:
+load 1
+int 0
+!=
+bz main_l199
+byte "bad move"
+store 0
+b main_l199
+main_l268:
+int 1
+store 8
+b main_l188
+main_l269:
+int 1
+store 7
+b main_l188
+main_l270:
+int 1
+store 6
+b main_l188
+main_l271:
+int 1
+store 5
+b main_l188
+main_l272:
+int 1
+store 4
+b main_l188
+main_l273:
+int 1
+store 3
+b main_l188
+main_l274:
+int 1
+store 2
+b main_l188
+main_l275:
+int 1
+store 1
+b main_l188
+main_l276:
+byte "bad move"
+store 0
+b main_l177
+main_l277:
+load 8
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l279:
+load 7
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l281:
+load 6
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l283:
+load 5
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l285:
+load 4
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l287:
+load 3
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l289:
+load 2
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
+main_l291:
+load 1
+int 0
+!=
+bz main_l177
+byte "bad move"
+store 0
+b main_l177
