@@ -163,5 +163,6 @@ cython_debug/
 ### CUSTOM
 
 .venv
+.vscode
 *.code-workspace
 /DevelopersHelper/graviton
