@@ -1,2 +1,319 @@
 #pragma version 8
-pushint 1  //replace with your solution
+txn ApplicationID
+int 0
+==
+bnz main_l19
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l18
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l17
+txn OnCompletion
+int CloseOut
+==
+bnz main_l16
+txna ApplicationArgs 0
+byte "NONE"
+==
+bnz main_l15
+txna ApplicationArgs 0
+byte "CREATE"
+==
+bnz main_l14
+txna ApplicationArgs 0
+byte "LOOKUP_BY_LOC"
+==
+bnz main_l8
+err
+main_l8:
+txn NumAppArgs
+int 4
+==
+assert
+txna ApplicationArgs 1
+btoi
+store 14
+txna ApplicationArgs 2
+btoi
+store 15
+txna ApplicationArgs 3
+btoi
+store 13
+load 13
+int 250000
+<
+assert
+int 0
+store 16
+main_l9:
+load 16
+byte "MonstersIndex"
+app_global_get
+<
+bnz main_l11
+int 1
+return
+main_l11:
+load 16
+itob
+box_get
+store 20
+store 19
+load 20
+assert
+load 19
+store 18
+load 18
+extract 26 16
+store 6
+load 6
+int 8
+int 0
+*
+extract_uint64
+store 4
+load 6
+int 8
+int 1
+*
+extract_uint64
+store 5
+load 4
+load 14
+callsub square_1
+load 5
+load 15
+callsub square_1
++
+load 13
+<=
+bnz main_l13
+main_l12:
+load 16
+int 1
++
+store 16
+b main_l9
+main_l13:
+load 18
+load 18
+int 0
+extract_uint16
+dig 1
+len
+substring3
+store 0
+load 18
+int 2
+extract_uint64
+store 1
+load 1
+store 17
+load 18
+int 10
+extract_uint64
+store 2
+load 18
+int 18
+extract_uint64
+store 3
+load 18
+int 42
+extract_uint64
+store 7
+load 0
+extract 2 0
+load 1
+itob
+concat
+load 2
+itob
+concat
+load 3
+itob
+concat
+load 4
+itob
+concat
+load 5
+itob
+concat
+load 7
+itob
+concat
+log
+b main_l12
+main_l14:
+txn NumAppArgs
+int 8
+==
+assert
+byte "MonstersIndex"
+app_global_get
+store 8
+load 8
+int 1000
+<
+assert
+txna ApplicationArgs 1
+store 0
+load 0
+len
+itob
+extract 6 0
+load 0
+concat
+store 0
+txna ApplicationArgs 2
+btoi
+store 1
+txna ApplicationArgs 3
+btoi
+store 2
+txna ApplicationArgs 4
+btoi
+store 3
+txna ApplicationArgs 5
+btoi
+store 4
+load 4
+int 10000
+<=
+assert
+txna ApplicationArgs 6
+btoi
+store 5
+load 5
+int 10000
+<=
+assert
+txna ApplicationArgs 7
+btoi
+store 7
+load 7
+callsub checkuniqueasaid_0
+load 4
+itob
+load 5
+itob
+concat
+store 6
+load 0
+store 12
+load 12
+store 11
+int 50
+store 10
+load 10
+itob
+extract 6 0
+load 1
+itob
+concat
+load 2
+itob
+concat
+load 3
+itob
+concat
+load 6
+concat
+load 7
+itob
+concat
+load 11
+concat
+store 9
+load 8
+itob
+load 9
+box_put
+load 8
+int 1
++
+store 8
+byte "MonstersIndex"
+load 8
+app_global_put
+int 1
+return
+main_l15:
+int 1
+return
+main_l16:
+int 1
+return
+main_l17:
+int 1
+return
+main_l18:
+int 1
+return
+main_l19:
+byte "MonstersIndex"
+int 0
+app_global_put
+int 1
+return
+
+// check_unique_asaid
+checkuniqueasaid_0:
+proto 1 0
+int 0
+int 0
+store 16
+checkuniqueasaid_0_l1:
+load 16
+byte "MonstersIndex"
+app_global_get
+<
+bz checkuniqueasaid_0_l3
+load 16
+itob
+box_get
+store 22
+store 21
+load 22
+assert
+load 21
+store 18
+load 18
+int 42
+extract_uint64
+frame_bury 0
+frame_dig 0
+frame_dig -1
+!=
+assert
+load 16
+int 1
++
+store 16
+b checkuniqueasaid_0_l1
+checkuniqueasaid_0_l3:
+retsub
+
+// square
+square_1:
+proto 2 1
+frame_dig -2
+frame_dig -1
+>
+bnz square_1_l2
+frame_dig -1
+frame_dig -2
+-
+int 2
+exp
+b square_1_l3
+square_1_l2:
+frame_dig -2
+frame_dig -1
+-
+int 2
+exp
+square_1_l3:
+retsub
